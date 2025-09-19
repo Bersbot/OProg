@@ -54,7 +54,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
 fi
 
 # =============================
-# 6️⃣ Чтение конфига
+#       Чтение конфига
 # =============================
 declare -A prog_paths
 section=""
@@ -78,7 +78,7 @@ done < "$CONFIG_FILE"
 param="$1"
 
 # =============================
-# 7️⃣ Команда help
+#         Команда help
 # =============================
 if [[ "$param" == "help" ]]; then
     echo "Available programs and their paths/commands:"
@@ -89,7 +89,7 @@ if [[ "$param" == "help" ]]; then
 fi
 
 # =============================
-# 8️⃣ Проверка и запуск программы
+# Проверка и запуск программы
 # =============================
 if [[ -n "${prog_paths[$param]}" ]]; then
     echo "Running <$param>..."
