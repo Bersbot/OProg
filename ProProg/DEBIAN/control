@@ -1,0 +1,8 @@
+Package: proprog
+Version: 1.0
+Section: utils
+Priority: optional
+Architecture: all
+Maintainer: Bers Bot <conotaka@gmail.com>
+Description: ProProg - custom program launcher
+

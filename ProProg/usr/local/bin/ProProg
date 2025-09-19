@@ -1,0 +1,115 @@
+#!/bin/bash
+
+SavePath="./savePath.bp"
+
+# =============================
+# 1️⃣ Попытка загрузить SavePath
+# =============================
+if [ -f "$SavePath" ] && [ -r "$SavePath" ]; then
+    source "$SavePath"
+    echo "Loaded system values from $SavePath"
+else
+    echo "SavePath not found or not readable. Using defaults."
+fi
+
+# =============================
+# 2️⃣ Дефолтные значения
+# =============================
+[ -z "$ProProgDir" ] && ProProgDir="$HOME/ProProg"
+[ -z "$CONFIG_FILE" ] && CONFIG_FILE="$ProProgDir/ProProgConfg.bp"
+
+# =============================
+# 3️⃣ Автосоздание SavePath, если нет
+# =============================
+if [ ! -f "$SavePath" ]; then
+    mkdir -p "$(dirname "$SavePath")"
+    echo "ProProgDir=$ProProgDir" > "$SavePath"
+    echo "CONFIG_FILE=$CONFIG_FILE" >> "$SavePath"
+    echo "$SavePath was created with default system values."
+fi
+
+# =============================
+# 4️⃣ Проверка параметра
+# =============================
+if [ -z "$1" ]; then
+    echo "Usage: $0 <program> or $0 help"
+    exit 1
+fi
+
+# =============================
+# 5️⃣ Проверка существования конфига
+# =============================
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "Config file $CONFIG_FILE not found!"
+    read -p "Do you want to create it? (y/n) " a
+    if [[ "$a" =~ ^[Yy]$ ]]; then
+        mkdir -p "$ProProgDir"
+        touch "$CONFIG_FILE"
+        echo "$CONFIG_FILE was created. Please edit it to add programs."
+        exit 0
+    else
+        echo "$CONFIG_FILE was not created, exiting."
+        exit 1
+    fi
+fi
+
+# =============================
+# 6️⃣ Чтение конфига
+# =============================
+declare -A prog_paths
+section=""
+while IFS='=' read -r key value; do
+    [[ -z "$key" || "$key" =~ ^# ]] && {
+        [[ "$key" == "#systemValues" ]] && section="system"
+        [[ "$key" == "#ProgramsPaths" ]] && section="programs"
+        continue
+    }
+
+    case "$section" in
+        system)
+            eval "$key=$value"
+            ;;
+        programs)
+            prog_paths["$key"]="$value"
+            ;;
+    esac
+done < "$CONFIG_FILE"
+
+param="$1"
+
+# =============================
+# 7️⃣ Команда help
+# =============================
+if [[ "$param" == "help" ]]; then
+    echo "Available programs and their paths/commands:"
+    for prog in $(printf "%s\n" "${!prog_paths[@]}" | sort); do
+        echo " - $prog => ${prog_paths[$prog]}"
+    done
+    exit 0
+fi
+
+# =============================
+# 8️⃣ Проверка и запуск программы
+# =============================
+if [[ -n "${prog_paths[$param]}" ]]; then
+    echo "Running <$param>..."
+    eval "${prog_paths[$param]}"
+    echo "Program <$param> has stopped"
+    exit 0
+else
+    echo "Unknown program: <$param>"
+    # Подсказка похожих названий
+    echo "Did you mean?"
+    for prog in "${!prog_paths[@]}"; do
+        if [[ "$prog" == $param* ]]; then
+            echo " - $prog => ${prog_paths[$prog]}"
+        fi
+    done
+    # Полный список
+    echo "Full list of available programs:"
+    for prog in $(printf "%s\n" "${!prog_paths[@]}" | sort); do
+        echo " - $prog => ${prog_paths[$prog]}"
+    done
+    exit 1
+fi
+
