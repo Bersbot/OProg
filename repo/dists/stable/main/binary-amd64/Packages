@@ -3,10 +3,10 @@ Version: 1.2
 Architecture: all
 Maintainer: Bers Bot <conotaka@gmail.com>
 Filename: pool/main/p/oprog/oprog_1.2_i386.deb
-Size: 2194
-MD5sum: 4ce66d873e772e796482136ad8198bbc
-SHA1: c4f76dd4b209afe7c3421840d8dd3be2c211fd59
-SHA256: 1f7a9c8aa31cebb11c296c0fdc4423ed3eed2b771d7b38810559258503f6e774
+Size: 2200
+MD5sum: 976593290774d3e9d5f3be066a53a35e
+SHA1: 854a52abe15dc2d8f0997abcf1f816bbbc176dbe
+SHA256: 83699e25f231bc65285900eff34192d05a714f23e9a1c3390bbf1893b6b880e5
 Section: utils
 Priority: optional
 Description: ProProg - custom program launcher
