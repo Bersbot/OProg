@@ -2,7 +2,7 @@ Package: oprog
 Version: 1.2
 Architecture: all
 Maintainer: Bers Bot <conotaka@gmail.com>
-Filename: pool/main/p/oprog/oprog_1.2_i386.deb
+Filename: pool/main/p/oprog/oprog_1.2_amd64.deb
 Size: 2194
 MD5sum: 976593290774d3e9d5f3be066a53a35e
 SHA1: 854a52abe15dc2d8f0997abcf1f816bbbc176dbe
