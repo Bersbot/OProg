@@ -118,6 +118,32 @@ if [[ "$1" == "add" ]]; then
     exit 0
 fi
 
+# 🟢 Удаление программ из конфига
+if [[ "$1" == "remove" ]]; then
+    if [ -z "$2" ]; then
+        echo "Usage: $0 remove <program>"
+        exit 1
+    fi
+
+    prog_name="$2"
+
+    if [ ! -f "$CONFIG_FILE" ]; then
+        echo "Config file $CONFIG_FILE not found!"
+        exit 1
+    fi
+
+    if grep -q "^$prog_name=" "$CONFIG_FILE"; then
+        # Удаляем строку
+        sed -i "/^$prog_name=/d" "$CONFIG_FILE"
+        echo "Removed program: $prog_name"
+    else
+        echo "Program <$prog_name> not found in $CONFIG_FILE"
+    fi
+
+    exit 0
+fi
+
+
 # =============================
 # Проверка и запуск программы
 # =============================
