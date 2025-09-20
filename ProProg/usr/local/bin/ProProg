@@ -88,6 +88,36 @@ if [[ "$param" == "help" ]]; then
     exit 0
 fi
 
+if [[ "$1" == "add" ]]; then
+    shift # убираем "add"
+    if [ -z "$1" ]; then
+        echo "Usage: $0 add <name=command/path [args]>"
+        exit 1
+    fi
+
+    entry="$*"   # собираем всё, что осталось, в одну строку
+
+    # Проверим, что конфиг существует
+    if [ ! -f "$CONFIG_FILE" ]; then
+        echo "Config file $CONFIG_FILE not found, creating..."
+        mkdir -p "$(dirname "$CONFIG_FILE")"
+        echo "#systemValues" > "$CONFIG_FILE"
+        echo "#ProgramsPaths" >> "$CONFIG_FILE"
+    fi
+
+    # Добавим строку после секции #ProgramsPaths
+    if grep -q "^#ProgramsPaths" "$CONFIG_FILE"; then
+        sed -i "/^#ProgramsPaths/a $entry" "$CONFIG_FILE"
+    else
+        # Если секции нет — создаём её
+        echo "#ProgramsPaths" >> "$CONFIG_FILE"
+        echo "$entry" >> "$CONFIG_FILE"
+    fi
+
+    echo "Added program: $entry"
+    exit 0
+fi
+
 # =============================
 # 8️⃣ Проверка и запуск программы
 # =============================
