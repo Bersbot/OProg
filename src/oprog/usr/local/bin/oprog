@@ -15,8 +15,8 @@ fi
 # =============================
 #     Дефолтные значения
 # =============================
-[ -z "$ProProgDir" ] && ProProgDir="$HOME/ProProg"
-[ -z "$CONFIG_FILE" ] && CONFIG_FILE="$ProProgDir/ProProgConfg.bp"
+[ -z "$ProProgDir" ] && ProProgDir="$HOME/OProg"
+[ -z "$CONFIG_FILE" ] && CONFIG_FILE="$ProProgDir/OProgConfg.bp"
 
 # =============================
 # Автосоздание SavePath, если нет
