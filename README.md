@@ -7,7 +7,7 @@ you can run it ProProg or using a sh file at ProProg/usr/local/bin/ProProg
 after i will add a installer or some think like this
 
 if you want to install this with apt you need to use
-`bash echo "deb [trusted=yes] https://bersbot.github.io/OProg/repo stable main" | sudo tee /etc/apt/sources.list.d/oprog.list`\
+bash`echo "deb [trusted=yes] https://bersbot.github.io/OProg/repo stable main" | sudo tee /etc/apt/sources.list.d/oprog.list`\
 for update a rep
 and then you can use
-`bash sudo apt install proprog`
+bash`sudo apt install proprog`
