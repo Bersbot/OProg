@@ -3,7 +3,7 @@
 SavePath="./savePath.bp"
 
 # =============================
-# 1️⃣ Попытка загрузить SavePath
+# Попытка загрузить SavePath
 # =============================
 if [ -f "$SavePath" ] && [ -r "$SavePath" ]; then
     source "$SavePath"
@@ -13,13 +13,13 @@ else
 fi
 
 # =============================
-# 2️⃣ Дефолтные значения
+#     Дефолтные значения
 # =============================
 [ -z "$ProProgDir" ] && ProProgDir="$HOME/ProProg"
 [ -z "$CONFIG_FILE" ] && CONFIG_FILE="$ProProgDir/ProProgConfg.bp"
 
 # =============================
-# 3️⃣ Автосоздание SavePath, если нет
+# Автосоздание SavePath, если нет
 # =============================
 if [ ! -f "$SavePath" ]; then
     mkdir -p "$(dirname "$SavePath")"
@@ -29,7 +29,7 @@ if [ ! -f "$SavePath" ]; then
 fi
 
 # =============================
-# 4️⃣ Проверка параметра
+#      Проверка параметра
 # =============================
 if [ -z "$1" ]; then
     echo "Usage: $0 <program> or $0 help"
@@ -37,7 +37,7 @@ if [ -z "$1" ]; then
 fi
 
 # =============================
-# 5️⃣ Проверка существования конфига
+# Проверка существования конфига
 # =============================
 if [ ! -f "$CONFIG_FILE" ]; then
     echo "Config file $CONFIG_FILE not found!"
@@ -54,7 +54,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
 fi
 
 # =============================
-# 6️⃣ Чтение конфига
+#       Чтение конфига
 # =============================
 declare -A prog_paths
 section=""
@@ -78,7 +78,7 @@ done < "$CONFIG_FILE"
 param="$1"
 
 # =============================
-# 7️⃣ Команда help
+#         Команда help
 # =============================
 if [[ "$param" == "help" ]]; then
     echo "Available programs and their paths/commands:"
@@ -119,7 +119,7 @@ if [[ "$1" == "add" ]]; then
 fi
 
 # =============================
-# 8️⃣ Проверка и запуск программы
+# Проверка и запуск программы
 # =============================
 if [[ -n "${prog_paths[$param]}" ]]; then
     echo "Running <$param>..."
