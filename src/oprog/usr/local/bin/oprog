@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SavePath="./savePath.bp"
+SavePath="$HOME/.local/share/oprog/savePath.bp"
 
 # =============================
 # Попытка загрузить SavePath
@@ -15,7 +15,7 @@ fi
 # =============================
 #     Дефолтные значения
 # =============================
-[ -z "$ProProgDir" ] && ProProgDir="$HOME/OProg"
+[ -z "$ProProgDir" ] && ProProgDir="$HOME/.config/OProg"
 [ -z "$CONFIG_FILE" ] && CONFIG_FILE="$ProProgDir/OProgConfg.bp"
 
 # =============================
